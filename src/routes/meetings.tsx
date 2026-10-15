@@ -14,7 +14,7 @@ import { setState, uid, useAppState } from "@/lib/store";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/meetings")({
-  validateSearch: (s: Record<string, unknown>): { id?: string } => ({ id: typeof s["id"] === "string" ? (s["id"] as string) : undefined }),
+  validateSearch: (s: Record<string, unknown>): { id?: string | undefined } => ({ id: typeof s["id"] === "string" ? (s["id"] as string) : undefined }),
   head: () => ({
     meta: [
       { title: "Meeting Summarizer — MindFlow AI" },
@@ -73,7 +73,7 @@ function Meetings() {
 
   function remove(mid: string) {
     setState((s) => ({ ...s, meetings: s.meetings.filter((m) => m.id !== mid) }));
-    navigate({ search: { id: undefined } });
+    navigate({ search: {} });
   }
 
   return (
