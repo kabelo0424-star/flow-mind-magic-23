@@ -14,7 +14,7 @@ import { setState, uid, useAppState } from "@/lib/store";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/meetings")({
-  validateSearch: (s: Record<string, unknown>) => ({ id: typeof s.id === "string" ? s.id : undefined }),
+  validateSearch: (s: Record<string, unknown>): { id?: string } => ({ id: typeof s["id"] === "string" ? (s["id"] as string) : undefined }),
   head: () => ({
     meta: [
       { title: "Meeting Summarizer — MindFlow AI" },
@@ -54,7 +54,7 @@ function Meetings() {
   }
 
   async function create() {
-    if (!title.trim() || notes.trim().length < 10) return toast.error("Add a title and at least a sentence of notes.");
+    if (!title.trim() || notes.trim().length < 10) { toast.error("Add a title and at least a sentence of notes."); return; }
     const m = { id: uid(), title: title.trim(), date: new Date().toISOString().slice(0, 10), attendees: attendees.split(",").map((a) => a.trim()).filter(Boolean), notes };
     setState((s) => ({ ...s, meetings: [m, ...s.meetings] }));
     setCreating(false);

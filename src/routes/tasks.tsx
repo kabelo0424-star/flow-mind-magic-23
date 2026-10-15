@@ -49,7 +49,7 @@ function Tasks() {
   const update = (id: string, patch: Partial<Task>) => setState((s) => ({ ...s, tasks: s.tasks.map((t) => (t.id === id ? { ...t, ...patch } : t)) }));
 
   async function generate() {
-    if (goal.trim().length < 3) return toast.error("Describe a goal first.");
+    if (goal.trim().length < 3) { toast.error("Describe a goal first."); return; }
     setLoading(true);
     try {
       const res = await plan({ data: { goal } });
@@ -68,7 +68,7 @@ function Tasks() {
   }
 
   function addTask() {
-    if (!draft.title.trim()) return toast.error("Give the task a title.");
+    if (!draft.title.trim()) { toast.error("Give the task a title."); return; }
     setState((s) => ({ ...s, tasks: [{ id: uid(), status: "todo", ...draft }, ...s.tasks] }));
     setOpen(false);
     setDraft({ ...draft, title: "", description: "" });

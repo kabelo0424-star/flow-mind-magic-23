@@ -13,7 +13,7 @@ import { setState, uid, useAppState } from "@/lib/store";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/research")({
-  validateSearch: (s: Record<string, unknown>) => ({ id: typeof s.id === "string" ? s.id : undefined }),
+  validateSearch: (s: Record<string, unknown>): { id?: string } => ({ id: typeof s["id"] === "string" ? (s["id"] as string) : undefined }),
   head: () => ({
     meta: [
       { title: "AI Research Assistant — MindFlow AI" },
@@ -50,7 +50,7 @@ function ResearchPage() {
   }
 
   function start() {
-    if (topic.trim().length < 3) return toast.error("Enter a topic to research.");
+    if (topic.trim().length < 3) { toast.error("Enter a topic to research."); return; }
     const r = { id: uid(), topic: topic.trim(), createdAt: new Date().toISOString().slice(0, 10) };
     setState((s) => ({ ...s, research: [r, ...s.research] }));
     setTopic("");
