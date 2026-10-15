@@ -48,7 +48,7 @@ function Dashboard() {
   return (
     <div>
       <PageHeader
-        title="Good to see you 👋"
+        title="Good to see you"
         subtitle="Here's what's flowing through your workspace today."
         action={<Button asChild><Link to="/assistant">Ask MindFlow AI <ArrowRight /></Link></Button>}
       />
@@ -96,7 +96,7 @@ function Dashboard() {
             <div className="relative h-44">
               <ResponsiveContainer>
                 <PieChart>
-                  <Pie data={statusData} dataKey="value" innerRadius={52} outerRadius={75} paddingAngle={3} stroke="none">
+                  <Pie data={statusData} dataKey="value" innerRadius={52} outerRadius={75} paddingAngle={3} stroke="none" isAnimationActive={false}>
                     {statusData.map((d) => <Cell key={d.name} fill={d.fill} />)}
                   </Pie>
                   <Tooltip contentStyle={{ background: "var(--popover)", border: "1px solid var(--border)", borderRadius: 8, color: "var(--popover-foreground)" }} />
@@ -138,7 +138,7 @@ function Dashboard() {
                 <XAxis type="number" hide allowDecimals={false} />
                 <YAxis type="category" dataKey="name" width={90} tick={{ fill: "var(--muted-foreground)", fontSize: 12 }} axisLine={false} tickLine={false} />
                 <Tooltip cursor={{ fill: "var(--muted)" }} contentStyle={{ background: "var(--popover)", border: "1px solid var(--border)", borderRadius: 8, color: "var(--popover-foreground)" }} />
-                <Bar dataKey="count" fill="var(--chart-1)" radius={[0, 6, 6, 0]} />
+                <Bar dataKey="count" fill="var(--chart-1)" radius={[0, 6, 6, 0]} isAnimationActive={false} />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>
